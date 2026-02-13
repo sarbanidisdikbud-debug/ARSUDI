@@ -1,0 +1,7 @@
+{
+  "name": "Arsip Surat BP PAUD DAN PNF",
+  "description": "A modern web-based document archiving system for letters, featuring AI-powered summarization and metadata extraction using Gemini 3.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
