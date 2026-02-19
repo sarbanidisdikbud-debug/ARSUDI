@@ -1,22 +1,23 @@
-
 {
-  "name": "arsudi-ai",
-  "version": "1.1.0",
-  "private": true,
-  "description": "Modern AI-Powered Document Archiving System",
-  "main": "index.html",
-  "scripts": {
-    "start": "npx serve .",
-    "test": "echo \"Validating...\" && exit 0"
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*"]
+    },
+    "types": []
   },
-  "keywords": [
-    "archive",
-    "gemini-ai",
-    "react"
-  ],
-  "author": "BP PAUD & PNF",
-  "license": "MIT",
-  "devDependencies": {
-    "serve": "^14.2.4"
-  }
+  "include": ["**/*.ts", "**/*.tsx"]
 }

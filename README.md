@@ -54,3 +54,27 @@ Dapatkan API Key Gemini secara gratis di [Google AI Studio](https://aistudio.goo
 
 ---
 *Dibuat untuk BP PAUD & PNF - Digital Transformation Project.*
+
+## 🧭 Local Development
+
+Prasyarat: Node.js & npm terpasang (unduh dari https://nodejs.org)
+
+Langkah menjalankan proyek secara lokal:
+
+```bash
+npm install
+npm run dev
+```
+
+Build produksi:
+
+```bash
+npm run build
+npm run preview
+```
+
+Jika memakai Gemini API, buat file `.env` dengan variabel:
+
+```
+GEMINI_API_KEY=your_api_key_here
+```

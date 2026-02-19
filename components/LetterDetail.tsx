@@ -18,7 +18,7 @@ import {
   GraduationCap
 } from 'lucide-react';
 import { Letter, UserRole } from '../types';
-import { summarizeLetter } from '../services/geminiService';
+import { summarizeLetter, isGeminiAvailable } from '../services/geminiService';
 
 interface Props {
   letters: Letter[];
@@ -163,10 +163,11 @@ export default function LetterDetail({ letters, userRole, onUpdate, onDelete }: 
               {!letter.aiSummary && (
                 <button 
                   onClick={handleSummarize}
-                  disabled={isSummarizing}
-                  className="px-4 py-2 bg-amber-200 hover:bg-amber-300 text-amber-900 rounded-xl text-xs font-black uppercase tracking-widest transition-all"
+                  disabled={isSummarizing || !isGeminiAvailable()}
+                  title={!isGeminiAvailable() ? 'AI tidak dikonfigurasi. Tambahkan GEMINI_API_KEY di .env.' : undefined}
+                  className="px-4 py-2 bg-amber-200 hover:bg-amber-300 text-amber-900 rounded-xl text-xs font-black uppercase tracking-widest transition-all disabled:opacity-50"
                 >
-                  {isSummarizing ? <Loader2 size={16} className="animate-spin" /> : 'Generate Ringkasan'}
+                  {isSummarizing ? <Loader2 size={16} className="animate-spin" /> : (isGeminiAvailable() ? 'Generate Ringkasan' : 'AI Tidak Tersedia')}
                 </button>
               )}
             </div>

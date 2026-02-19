@@ -1,11 +1,21 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Always use process.env.API_KEY directly for initialization
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Resolve API key from common sources (Vite: import.meta.env, or replaced process.env during build)
+const API_KEY = (typeof (globalThis as any).process === 'object' && (globalThis as any).process.env && (globalThis as any).process.env.API_KEY)
+  || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_GEMINI_API_KEY || (import.meta as any).env?.GEMINI_API_KEY : undefined)
+  || undefined;
+
+function getClient() {
+  if (!API_KEY) throw new Error('Missing Gemini API key. Set VITE_GEMINI_API_KEY or process.env.API_KEY');
+  return new GoogleGenAI({ apiKey: API_KEY });
+}
+
+export const isGeminiAvailable = () => !!API_KEY;
 
 export const summarizeLetter = async (content: string): Promise<string> => {
   try {
+    const ai = getClient();
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Ringkaslah isi surat berikut ini menjadi satu kalimat yang padat dan informatif dalam Bahasa Indonesia: \n\n ${content}`,
@@ -20,6 +30,7 @@ export const summarizeLetter = async (content: string): Promise<string> => {
 
 export const extractMetadata = async (text: string) => {
   try {
+    const ai = getClient();
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Ekstrak informasi penting dari teks surat berikut dalam format JSON. Field yang dibutuhkan: 
@@ -56,6 +67,7 @@ export const extractMetadata = async (text: string) => {
 
 export const extractMetadataFromImage = async (base64Data: string, mimeType: string) => {
   try {
+    const ai = getClient();
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: {

@@ -19,15 +19,15 @@ import {
   GraduationCap,
   AlertTriangle
 } from 'lucide-react';
-import { Letter, User } from './types.ts';
-import { INITIAL_LETTERS, CATEGORIES } from './constants.ts';
-import Dashboard from './components/Dashboard.tsx';
-import LetterForm from './components/LetterForm.tsx';
-import LetterList from './components/LetterList.tsx';
-import LetterDetail from './components/LetterDetail.tsx';
-import Login from './components/Login.tsx';
-import UserManagement from './components/UserManagement.tsx';
-import Settings from './components/Settings.tsx';
+import { Letter, User } from './types';
+import { INITIAL_LETTERS, CATEGORIES } from './constants';
+import Dashboard from './components/Dashboard';
+import LetterForm from './components/LetterForm';
+import LetterList from './components/LetterList';
+import LetterDetail from './components/LetterDetail';
+import Login from './components/Login';
+import UserManagement from './components/UserManagement';
+import Settings from './components/Settings';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(() => {

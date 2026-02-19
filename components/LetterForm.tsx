@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import { Letter } from '../types';
 import { CATEGORIES, EDUCATION_LEVELS } from '../constants';
-import { extractMetadataFromImage } from '../services/geminiService';
+import { extractMetadataFromImage, isGeminiAvailable } from '../services/geminiService';
 
 interface Props {
   onAdd: (letter: Letter) => void;
@@ -210,12 +210,13 @@ export default function LetterForm({ onAdd, initialData }: Props) {
                 <div className="space-y-4 mt-8">
                   <button 
                     type="button"
-                    disabled={aiProcessing}
+                    disabled={aiProcessing || !isGeminiAvailable()}
                     onClick={processWithAI}
+                    title={!isGeminiAvailable() ? 'AI tidak dikonfigurasi. Tambahkan GEMINI_API_KEY di .env.' : undefined}
                     className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 disabled:opacity-50"
                   >
                     {aiProcessing ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
-                    {aiProcessing ? 'Menganalisis...' : 'Ekstrak Data (AI)'}
+                    {aiProcessing ? 'Menganalisis...' : (isGeminiAvailable() ? 'Ekstrak Data (AI)' : 'AI Tidak Tersedia')}
                   </button>
                   <button 
                     type="button"
